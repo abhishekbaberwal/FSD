@@ -1,0 +1,29 @@
+{
+  "name": "smart-job-portal",
+  "version": "1.0.0",
+  "description": "Smart Job Portal — a job/internship portal for students and freshers, with a plain Node.js backend (no external runtime dependencies) and a Bootstrap frontend.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhishekbaberwal/smart-job-portal.git"
+  },
+  "keywords": ["job-portal", "internships", "students", "nodejs"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhishekbaberwal/smart-job-portal/issues"
+  },
+  "homepage": "https://github.com/abhishekbaberwal/smart-job-portal#readme",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1"
+  },
+  "dependencies": {}
+}

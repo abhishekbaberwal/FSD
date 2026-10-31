@@ -1,29 +1,16 @@
 {
-  "name": "smart-job-portal",
-  "version": "1.0.0",
-  "description": "Smart Job Portal — a job/internship portal for students and freshers, with a plain Node.js backend (no external runtime dependencies) and a Bootstrap frontend.",
-  "main": "backend/server.js",
+  "name": "smart-job-portal-mern",
+  "version": "2.0.0",
+  "description": "Smart Job Portal for Students - Production-Grade Full MERN Stack Application",
   "scripts": {
     "start": "node backend/server.js",
-    "test": "jest"
+    "seed": "cd backend && npm run seed",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abhishekbaberwal/smart-job-portal.git"
-  },
-  "keywords": ["job-portal", "internships", "students", "nodejs"],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/abhishekbaberwal/smart-job-portal/issues"
-  },
-  "homepage": "https://github.com/abhishekbaberwal/smart-job-portal#readme",
-  "directories": {
-    "test": "tests"
-  },
-  "devDependencies": {
-    "jest": "^30.5.1",
-    "jest-environment-jsdom": "^30.5.1"
-  },
-  "dependencies": {}
+  "keywords": ["mern", "mongodb", "express", "react", "nodejs", "job-portal", "students", "internships"],
+  "author": "Abhishek Baberwal",
+  "license": "ISC"
 }

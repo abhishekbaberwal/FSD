@@ -1,211 +1,164 @@
-# Smart Job Portal
+# SmartJobs — Smart Job Portal for Students & Freshers (MERN Stack)
 
-## Project Overview
+> **A Complete, Production-Grade Full-Stack MERN Application for College Campus Placements, Student Career Opportunities, and Recruiter Hiring Pipelines.**
 
-Smart Job Portal (SmartJobs) is a full-stack job/internship portal built as
-an FSD project. Students and freshers can browse jobs, filter by category,
-location, type and experience, register/login, and apply to jobs — with
-applications tracked on a personal dashboard.
+---
 
-## Features
+## 📌 1. Project Overview
 
-- Home page with hero search, categories, and featured jobs (live data)
-- Job listings page with working search/filter (title, location, category,
-  type, experience)
-- Job details page with an Apply flow
-- Registration and login backed by a real API (hashed passwords, session
-  tokens) — no more fake `onsubmit="return false"` forms
-- "My Applications" dashboard with status badges (Applied, In Review,
-  Shortlisted, Rejected, Selected)
-- About and Contact pages
-- Responsive design (Bootstrap 5)
+**Smart Job Portal for Students** is a modern, responsive, and secure web application designed specifically to empower college students and freshers to discover verified jobs and internships, build and manage technical profiles, upload and preview resumes, submit applications with 1-click convenience, and track application progress in real-time.
 
-## Technologies Used
+It provides a three-tiered role-based system:
+1. **Student Module**: Discover jobs, live keyword search, multi-faceted filtering, profile management, resume upload/download, 1-click apply, application tracking with progression badges, and saved job bookmarks.
+2. **Recruiter Module**: Manage company profiles, publish new job openings, edit/close/delete listings, review candidate applicants, inspect candidate profiles, download applicant resumes, and update application status (Applied → Under Review → Shortlisted → Selected / Rejected) with personalized candidate feedback and automatic in-app notifications.
+3. **Admin Module**: Executive platform analytics, system-wide metrics, student and recruiter account moderation (activate/deactivate/delete), job oversight, and complete application audit trails.
 
-- **Frontend:** HTML5, CSS3, Bootstrap 5, jQuery, vanilla JS (`fetch`)
-- **Backend:** Node.js — plain `http` module only, **no Express and no
-  `npm install` required to run it**. Uses only Node's built-in `crypto`
-  module for password hashing (scrypt) and session tokens.
-- **Storage:** a single JSON file (`backend/data/db.json`), created and
-  seeded automatically on first run. Good enough for a student project;
-  swap in a real database later without touching the frontend.
-- **Testing:** Jest for backend logic (`tests/`), Python `unittest` for
-  project-structure checks (`test_project.py`, run by the Jenkins pipeline)
+---
 
-## Running the Project
+## 🛠️ 2. Genuine MERN Stack Architecture
 
-You need Node.js installed (no other runtime dependencies). From the
-project root:
+This project is built from scratch as a true **MERN** application with clean separation of concerns:
 
-```bash
-node backend/server.js
-```
-
-Then open **http://localhost:3000** in your browser. The server serves the
-frontend pages *and* the API from the same port, so there's nothing else to
-configure and no CORS issues.
-
-On first run it creates `backend/data/db.json`, pre-seeded with 10 sample
-jobs. Registering a user or applying to a job updates that file directly —
-delete it any time to reset to a clean seeded state.
-
-### Troubleshooting: "Can't reach the SmartJobs server"
-
-The pages talk to the backend, so the backend must be running:
-
-1. In the project folder run `node backend/server.js` and leave that terminal open.
-2. Open **http://localhost:3000** (not by double-clicking the HTML file).
-
-Pages opened from disk or from VS Code Live Server are also supported — they call the
-backend at `http://localhost:3000` automatically — but the server still has to be running.
-
-### Running the tests
-
-```bash
-npm install        # only needed once, to pull in Jest itself
-npm test            # runs the Jest suite in tests/
-python -m unittest discover -v   # runs the structural checks (used by CI)
-```
-
-
-## MT2 — Modules 5–6: Containerization, Deployment & Monitoring
-
-### Docker / Containerization
-
-The project includes:
-
-- `Dockerfile` — builds and runs the Node.js application.
-- `docker-compose.yml` — runs the application, Prometheus, and Grafana.
-- `.dockerignore` — keeps local/dev files out of the image.
-
-Build and run the application:
-
-```bash
-docker build -t smart-job-portal:latest .
-docker run --rm -p 3000:3000 smart-job-portal:latest
-```
-
-Or run the complete monitoring stack:
-
-```bash
-docker compose up --build -d
-```
-
-### Health and monitoring endpoints
-
-- `GET /health` — application health check.
-- `GET /metrics` — Prometheus-compatible application metrics.
-
-Local monitoring URLs:
-
-- Application: http://localhost:3000
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3001
-
-Grafana credentials for the local Compose setup are `admin` / `admin`.
-
-### Container registry
-
-Before submission, build and push the image to a registry:
-
-```bash
-docker login
-docker tag smart-job-portal:latest YOUR_DOCKERHUB_USERNAME/smart-job-portal:latest
-docker push YOUR_DOCKERHUB_USERNAME/smart-job-portal:latest
-```
-
-Replace `YOUR_DOCKERHUB_USERNAME` with the student's Docker Hub username.
-The pushed image is the evidence that the Docker build genuinely succeeded.
-
-### Deployment evidence
-
-The final public deployment URL must be placed below after the real deployment:
-
-**Live URL:** `TODO — replace with the actual deployed URL`
-
-Deployment screenshot instructions are in `docs/DEPLOYMENT.md`. The real
-deployment screenshot should be committed as `docs/deployment-screenshot.png`.
-
-### MT2 checklist
-
-| Module | Requirement | Status |
+| Layer | Technology | Key Libraries / Frameworks |
 |---|---|---|
-| M5 | Dockerfile present | Done |
-| M5 | docker-compose.yml present | Done |
-| M5 | Image pushed to container registry | Pending student's registry login/push |
-| M6 | Live URL responding | Pending deployment |
-| M6 | Prometheus config present | Done |
-| M6 | Monitoring dashboard committed under `monitoring/` | Done |
-| M6 | Deployment screenshot committed under `docs/` | Pending real deployment |
+| **Frontend** | **React.js 18 + Vite** | React Router DOM v6, Axios, Lucide Icons, Custom Design System CSS |
+| **Backend** | **Node.js + Express.js** | Express REST APIs, JWT (jsonwebtoken), bcryptjs, Multer, Nodemailer, Morgan |
+| **Database** | **MongoDB + Mongoose** | Mongoose ODM, TTL Indexing, Compound Unique Indexes, Aggregation Pipelines |
+| **Authentication** | **JWT Bearer Tokens** | bcrypt password hashing (10 salt rounds), Protected routes, Role-based middleware |
 
-## API Reference
+---
 
-All endpoints are under `/api`. Protected endpoints expect
-`Authorization: Bearer <token>`.
+## 🔑 3. Demo Credentials (For College Viva & Demonstration)
 
-| Method | Endpoint             | Auth | Description                          |
-|--------|-----------------------|------|---------------------------------------|
-| POST   | `/api/register`       | No   | Create an account, returns a token    |
-| POST   | `/api/login`          | No   | Log in, returns a token               |
-| POST   | `/api/logout`         | Yes  | Invalidate the current session token  |
-| GET    | `/api/me`              | Yes  | Get the current user                  |
-| GET    | `/api/jobs`            | No   | List jobs (supports query filters)    |
-| GET    | `/api/jobs/:id`        | No   | Get a single job                      |
-| POST   | `/api/applications`   | Yes  | Apply to a job (`{ "jobId": 1 }`)     |
-| GET    | `/api/applications`   | Yes  | List the current user's applications  |
+The database is pre-seeded with verified test accounts and realistic applications for instant examination testing:
 
-`GET /api/jobs` query params: `search`, `location`, `category`, `type`,
-`experience` — all optional and combinable.
+| Role | Email Address | Password | Permissions & Features |
+|---|---|---|---|
+| **System Admin** | `admin@smartjobs.com` | `Admin@123` | Platform analytics, User management, Job oversight, Audit log |
+| **Recruiter** | `recruiter@techcorp.com` | `Recruiter@123` | TechNova company profile, Job posting, Applicant management, Status updates |
+| **Recruiter 2** | `sarah@codecraft.io` | `Recruiter@123` | CodeCraft Labs company profile, Software engineering openings |
+| **Student** | `student@college.edu` | `Student@123` | Aditya Sharma, B.Tech CSE, Resume attached, Applications in progress |
+| **Student 2** | `priya@college.edu` | `Student@123` | Priya Patel, B.Sc Data Science, Python & SQL skills |
 
-## Project Structure
+*Quick-Fill Buttons:* The Login page features one-click quick-fill buttons for Student, Recruiter, and Admin so examiners can test all roles effortlessly.
 
-```text
-smart-job-portal/
-├── index.html
-├── jobs.html
-├── job-details.html
-├── login.html
-├── register.html
-├── dashboard.html
-├── about.html
-├── contact.html
-├── css/
-│   ├── style.css
-│   └── responsive.css
-├── js/
-│   ├── api.js            # fetch wrapper + session storage
-│   ├── main.js            # shared navbar auth-state logic
-│   ├── validation.js       # login/register form handling
-│   ├── jobs.js             # jobs.html listing + filters
-│   ├── job-details.js      # job-details.html
-│   ├── dashboard.js        # dashboard.html
-│   └── index.js            # index.html featured jobs + hero search
-├── backend/
-│   ├── server.js           # HTTP server: static files + REST API
-│   ├── lib/
-│   │   ├── auth.js         # password hashing, session tokens
-│   │   └── store.js        # JSON file "database" + seed jobs
-│   └── data/
-│       └── db.json         # created automatically on first run
-├── tests/
-│   ├── auth.test.js
-│   ├── jobs-seed.test.js
-│   └── api.test.js         # end-to-end API tests (register, login, apply, metrics)
-├── monitoring/             # Prometheus config + Grafana dashboard
-├── docs/                   # deployment guide + MT2 evidence checklist
-├── test_project.py
-├── Dockerfile
-├── docker-compose.yml
-├── Jenkinsfile
-├── package.json
-└── README.md
+---
+
+## 🚀 4. Installation & Local Setup
+
+### Prerequisites
+- **Node.js** (v18.x or higher)
+- **MongoDB** (Local instance running on `mongodb://127.0.0.1:27017` or a MongoDB Atlas URI)
+
+### Step 1: Install Dependencies
+```bash
+# From root directory:
+npm run install:all
+```
+*(Or install separately inside `backend` and `frontend` folders: `cd backend && npm install` then `cd ../frontend && npm install`)*
+
+### Step 2: Seed the Database
+```bash
+# Populates MongoDB with seed users, 10 realistic jobs, applications, and notifications
+npm run seed
 ```
 
-CI workflow verified successfully.
-CI verification run 3.
-CI verification run 4.
+### Step 3: Run the Servers
+Open two terminal windows:
 
+**Terminal 1 — Backend API Server (Port 5000):**
+```bash
+cd backend
+npm run dev
+# Server running at http://localhost:5000
+```
 
-## MT2 Evidence Checklist
+**Terminal 2 — Frontend React App (Port 5173):**
+```bash
+cd frontend
+npm run dev
+# App running at http://localhost:5173
+```
 
-See [`docs/MT2_EVIDENCE_CHECKLIST.md`](docs/MT2_EVIDENCE_CHECKLIST.md) before submission.
+Now open **[http://localhost:5173](http://localhost:5173)** in your browser!
+
+---
+
+## 📡 5. REST API Documentation
+
+### Authentication Routes (`/api/auth`)
+- `POST /api/auth/register` — Register student or recruiter account
+- `POST /api/auth/login` — Sign in and receive JWT token
+- `GET /api/auth/me` — Fetch current user profile (Protected)
+- `POST /api/auth/forgot-password` — Generate secure reset token & dispatch Nodemailer email
+- `POST /api/auth/reset-password/:token` — Validate token and set new password
+- `PUT /api/auth/update-password` — Change password when logged in (Protected)
+
+### Jobs Routes (`/api/jobs`)
+- `GET /api/jobs` — Browse & search jobs with live pagination, category, type, location filters
+- `GET /api/jobs/featured` — Fetch featured opportunities for home page
+- `GET /api/jobs/categories` — Get category summaries with active counts
+- `GET /api/jobs/:id` — Get complete job description with responsibilities and requirements
+- `POST /api/jobs` — Create new job posting (Recruiter / Admin)
+- `PUT /api/jobs/:id` — Update job opening (Recruiter / Admin)
+- `DELETE /api/jobs/:id` — Delete job opening and cascade remove applications (Recruiter / Admin)
+- `GET /api/jobs/recruiter/my-jobs` — List recruiter's published jobs with applicant count
+- `POST /api/jobs/:id/save` — Toggle bookmark / saved job (Student)
+- `GET /api/jobs/saved/all` — List student's bookmarked jobs (Student)
+
+### Applications Routes (`/api/applications`)
+- `POST /api/applications` — Apply for a job with resume attachment (Student)
+- `GET /api/applications/my` — Track student's applications with status history (Student)
+- `GET /api/applications/job/:jobId` — View applicants for a specific job (Recruiter / Admin)
+- `PUT /api/applications/:id/status` — Update status (Applied / Under Review / Shortlisted / Selected / Rejected) and notify candidate
+- `DELETE /api/applications/:id/withdraw` — Withdraw student application (Student)
+- `GET /api/applications/:id/resume` — Securely stream / download candidate resume
+
+### User Profile Routes (`/api/users`)
+- `PUT /api/users/profile` — Update student profile, education, skills, projects (Student)
+- `POST /api/users/resume` — Upload resume document (`.pdf`, `.doc`, `.docx`) (Student)
+- `POST /api/users/avatar` — Upload profile photo
+- `PUT /api/users/company` — Update recruiter company details (Recruiter)
+- `GET /api/users/profile/:id` — View full candidate profile (Recruiter / Admin)
+
+### Admin Routes (`/api/admin`)
+- `GET /api/admin/stats` — Platform metrics & status distribution analytics
+- `GET /api/admin/users` — Search & list students or recruiters
+- `PUT /api/admin/users/:id/toggle-status` — Activate or deactivate user accounts
+- `DELETE /api/admin/users/:id` — Delete user account
+- `GET /api/admin/jobs` — Oversight of all platform jobs
+- `GET /api/admin/applications` — Audit log of all applications
+
+### Notifications Routes (`/api/notifications`)
+- `GET /api/notifications` — Fetch user's in-app notifications & unread count
+- `PUT /api/notifications/:id/read` — Mark notification as read
+- `PUT /api/notifications/read-all` — Mark all notifications as read
+
+---
+
+## 🗄️ 6. Database Models & Schema Design
+
+- **User**: Name, email (unique), password (bcrypt), role (`student`, `recruiter`, `admin`), isActive, profile (bio, headline, phone, location, education, skills, projects, resumeUrl), company (name, website, industry, location, description).
+- **Job**: Title, company, location, type (`Full-time`, `Internship`, `Part-time`, `Remote`), salary, experience, category, skills, description, responsibilities, requirements, postedBy (ref User), status (`Open`, `Closed`), applicantsCount, text search index.
+- **Application**: Job (ref Job), student (ref User), recruiter (ref User), resumeUrl, resumeOriginalName, coverNote, status (`Applied`, `Under Review`, `Shortlisted`, `Rejected`, `Selected`), statusHistory. **Compound unique index on `(job, student)` prevents duplicate submissions.**
+- **Notification**: Recipient (ref User), sender, type, title, message, link, isRead, timestamps.
+- **SavedJob**: Student (ref User), job (ref Job), unique compound index.
+- **PasswordResetToken**: User (ref User), tokenHash, expiresAt (MongoDB TTL index automatic expiration), used.
+
+---
+
+## 🛡️ 7. Security Highlights
+
+1. **Password Hashing**: Implemented via `bcryptjs` with salt rounds on Mongoose pre-save hooks.
+2. **JWT Authentication**: Secure Bearer tokens with expiration.
+3. **Role-Based Authorization**: Middleware ensures students cannot access recruiter endpoints, recruiters cannot access other recruiters' applicants, and admin routes are strictly guarded.
+4. **Duplicate Application Prevention**: Enforced at both database index and controller layers.
+5. **Secure File Uploads**: Multer validates file types (`.pdf`, `.doc`, `.docx` for resumes; `.jpg`, `.png`, `.webp` for avatars) and size limits.
+6. **Protected Resume Downloads**: Only the applicant student, the recruiter who posted the job, or an administrator can access uploaded resume files.
+
+---
+
+## 👨‍💻 Author & Attribution
+- **Developer**: Abhishek Baberwal
+- **Project**: Smart Job Portal for Students & Freshers
+- **Degree**: Full-Stack Development / Computer Science
